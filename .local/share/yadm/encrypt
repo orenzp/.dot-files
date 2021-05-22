@@ -1,0 +1,4 @@
+.ssh/id*
+.ssh/*.pem
+.ssh/*.key
+.ssh/.pub
