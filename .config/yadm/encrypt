@@ -2,3 +2,4 @@
 .ssh/*.pem
 .ssh/*.key
 .ssh/.pub
+.ssh/*rsa*
