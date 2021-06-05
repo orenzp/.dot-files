@@ -1,10 +1,15 @@
 [user]
 	email = orenzp@hotmail.com
 	name = Oren Zipori
+	signingKey = ""
 [alias]
 	ci = commit
 	st = status
 [core]
 	autocrlf = input
 [gpg]
-	program = gpg2
+	program = gpg
+[commit]
+	gpgSign = false
+[tag]
+	forceSignAnnotated = false
