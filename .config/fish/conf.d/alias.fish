@@ -1,0 +1,18 @@
+# General Alias
+alias repos='cd ~/repos'
+alias tf='terraform'
+alias ll='ls -lha'
+alias history='history --show-time="%a %H %M %S - " --reverse'
+alias jf='jfrog'
+
+
+# Kubernetes Alias
+alias kcx='kubectx'
+alias kcn='kubens'
+alias kc=kubectl
+alias kcgc='kubectl config get-contexts'
+
+# Git & Yadm Alias
+alias gts='git status'
+alias y='yadm'
+alias yst='yadm status'
