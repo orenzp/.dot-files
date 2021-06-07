@@ -1,8 +1,12 @@
-# Home Directory Setup
+# Dot File Managment Repository
 
-bareGit enable to backup and version Linux home directory setup for .dotfiles.
-This configuration is for Fish shell setup.
+This repository holds all my .dot-files which are used to configure my workspace enviroment in either Linux, macOS or WSL2.
+The repositry is managed using YADM a command line tool, YADM is basicly a smart tool that uses Git bare git repository to manage and version the Dotfiles in the home directory.
 
+YADM is able to save secrets in Git by enabling encrypt decrypt of certain files before push and after clone
+
+
+# Setup Requriements
 
 ## Install FISH Shell
 ```bash
@@ -19,7 +23,7 @@ sudo apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 az aks install-cli
-
+rr
 curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 curl -L https://github.com/wercker/stern/releases/download/1.11.0/stern_linux_amd64 --output stern && chmod +x stern && sudo mv stern /usr/local/bin/stern
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - \
@@ -33,16 +37,7 @@ set -x; cd "$(mktemp -d)" && \
     KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/arm.*$/arm/')" && \
     "$KREW" install krew 
 
-## bareGit backup and versioning.
-
-```bash
-alias bare='git --git-dir=$HOME/.git-bare/ --work-tree=$HOME'
-echo ".git-bare" >> .gitignore
-git clone --bare git@github.com:orenzp/git-bare.git $HOME/.git-bare
-bare config --local status.showUntrackedFiles no
-```
 
 ## Referance URL's:
-*[The best way to store your dotfiles: A bare Git repository](https://www.atlassian.com/git/tutorials/dotfiles)*
-
-*[What do you use to manage dotfiles?](https://news.ycombinator.com/item?id=11071754)*
+- [YADM - Yet Another Dotfile Manager](https://yadm.io/)
+- [FISH Shell](https://fishshell.com/)
