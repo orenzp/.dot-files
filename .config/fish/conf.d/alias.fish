@@ -13,6 +13,7 @@ alias kc=kubectl
 alias kcgc='kubectl config get-contexts'
 
 # Git & Yadm Alias
-alias gts='git status'
+alias gst='git status'
 alias y='yadm'
 alias yst='yadm status'
+alias ydiff='yadm diff'
