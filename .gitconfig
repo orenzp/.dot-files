@@ -7,6 +7,7 @@
 	st = status
 [core]
 	autocrlf = input
+	editor = vim
 [gpg]
 	program = gpg
 [commit]
