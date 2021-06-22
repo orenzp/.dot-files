@@ -3,7 +3,7 @@ echo "Running apt update & apt "
 apt-get update && apt upgrade && export DEBIAN_FRONTEND=noninteractive 
 apt-get -y install --no-install-recommends bash-completion vim \
     software-properties-common dirmngr apt-transport-https lsb-release \
-    iputils-ping ca-certificates etckeeper 
+    iputils-ping ca-certificates etckeeper tlp tlp-rdw gpg smartmontools
 
 echo "Installing AZ Cli, Kubectl and HELM"
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
@@ -19,6 +19,10 @@ curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - \
 echo "Setup Kuberentes add-ons"
 curl -L https://github.com/wercker/stern/releases/download/1.11.0/stern_linux_amd64 \
     --output stern && chmod +x stern && sudo mv stern /usr/local/bin/stern
+
+curl -s "https://raw.githubusercontent.com/\
+kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bashmv \
+    && sudo kustomize /usr/local/bin
 
 ## Install FISH Shell
 
