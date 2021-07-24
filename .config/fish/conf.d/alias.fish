@@ -7,7 +7,7 @@ alias jf='jfrog'
 
 
 # Kubernetes Alias
-alias kcx='kubectx'
+alias kcx='kubectx | fzf -m'
 alias kcn='kubens'
 alias kc=kubectl
 alias kcgc='kubectl config get-contexts'

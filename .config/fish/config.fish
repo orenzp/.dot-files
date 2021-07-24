@@ -10,3 +10,6 @@ end
 
 export GPG_TTY=(tty) # For Yadm Encrypt command to work.
 cd ~/repos
+
+sudo ntpdate ntp.ubuntu.com &>/dev/null &
+

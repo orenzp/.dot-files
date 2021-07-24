@@ -17,7 +17,7 @@ function kubectl_status
   set -l ns (kubectl config view -o "jsonpath={.contexts[?(@.name==\"$ctx\")].context.namespace}")
   [ -z $ns ]; and set -l ns 'default'
 
-  set -l az (az account show --query name -o tsv)
+  set -l az (az account show --query name -o tsv 2>/dev/null)
   [ -z $az ]; and set -l az 'No AZ Account'
 
   echo (set_color cyan)$KUBECTL_PROMPT_ICON" "(set_color red)"($ctx$KUBECTL_PROMPT_SEPARATOR$ns)"  (set_color green)"($az)"
