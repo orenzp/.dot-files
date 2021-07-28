@@ -1,9 +1,0 @@
-
-
-
-
-
-# Alias Setup
-alias kc=kubectl
-alias bareGit='git --git-dir=$HOME/.git-bare/ --work-tree=$HOME'
-

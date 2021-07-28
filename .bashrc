@@ -116,9 +116,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-#kubectx and kubens
-export PATH=~/.kubectx:$PATH
-source ~/.mybashrc
-
-complete -C /usr/local/bin/terraform terraform
+if [ -d ~/.config/bash/ ]; then
+    source ~/.config/bash/*
+fi
