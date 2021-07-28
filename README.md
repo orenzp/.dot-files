@@ -13,15 +13,17 @@ My prefer SHELL is fish Shell for all my workspaces.
 
 **Install YADM Package Manager**
 
-```shell
-    curl -fLo /usr/local/bin/yadm \
-    https://github.com/TheLocehiliosan/yadm/raw/master/yadm && \ 
-    chmod a+x /usr/local/bin/yadm
+```sh
+sudo curl -fLo /usr/local/bin/yadm \
+  https://github.com/TheLocehiliosan/yadm/raw/master/yadm && \ 
+  sudo chmod a+x /usr/local/bin/yadm
 ```
 
 **Clone the dot-file manager repo**
 
-`yadm clone https://github.com/orenzp/.dot-files.git`
+```sh
+yadm clone https://github.com/orenzp/.dot-files.git
+```
 
 > NOTE: that after 'yadm clone' YADM will execute a bootstap script in .config/yadm/bootstrap which will apply basic setup configuration like installing packages changing YADM repo URL from HTTPS to SSH.
 
@@ -29,4 +31,3 @@ My prefer SHELL is fish Shell for all my workspaces.
 
 - [YADM - Yet Another Dotfile Manager](https://yadm.io/)
 - [FISH Shell](https://fishshell.com/)
-- 
