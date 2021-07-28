@@ -3,15 +3,16 @@ echo "Adding PPA repositorys"
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - \
     && sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" 
 sudo apt-add-repository ppa:fish-shell/release-3
+sudo add-apt-repository ppa:git-core/ppa # stable PPA for latest stable Git version
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg \
-    && echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+    && sudo echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
 echo "Install desired packages "
-apt-get update && apt upgrade && export DEBIAN_FRONTEND=noninteractive 
-apt-get -y install --no-install-recommends bash-completion vim \
+sudo apt-get update && apt upgrade && export DEBIAN_FRONTEND=noninteractive 
+sudo apt-get -y install --no-install-recommends bash-completion vim \
     software-properties-common dirmngr apt-transport-https lsb-release \
     iputils-ping ca-certificates etckeeper tlp tlp-rdw gpg smartmontools \
-    terraform fish kubectl
+    ansible ansible-lint ansible-doc terraform fish 
 
 read -p "Do you want to install Azure CLI?? (y/n)?" choice
 case "$choice" in 
@@ -19,7 +20,6 @@ case "$choice" in
   n|N ) echo "Aboring Azure CLI installation";;
   * ) echo "invalid answer";;
 esac
-
 
 echo "Setup Kubectl, HELM and add-ons"
 if ! command -v helm &> /dev/null
