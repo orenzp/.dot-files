@@ -117,7 +117,10 @@ if ! shopt -oq posix; then
 fi
 
 if [ -d ~/.config/bash/ ]; then
-    source ~/.config/bash/*
+    #source ~/.config/bash/*
+    for file in ~/.config/bash/*; 
+        do source $file; 
+    done
 fi
 
 # The next line updates PATH for the Google Cloud SDK.
@@ -125,3 +128,5 @@ if [ -f '/home/orenzi/repos/temp/google-cloud-sdk/path.bash.inc' ]; then . '/hom
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/orenzi/repos/temp/google-cloud-sdk/completion.bash.inc' ]; then . '/home/orenzi/repos/temp/google-cloud-sdk/completion.bash.inc'; fi
+
+complete -C /usr/bin/terraform terraform

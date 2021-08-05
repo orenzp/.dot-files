@@ -5,6 +5,3 @@ alias yst="yadm status"
 alias kc='kubectl'
 alias tf='terraform'
 alias gc='gcloud'
-
-
-cd ~
