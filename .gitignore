@@ -1,3 +1,3 @@
 .ssh/id_*
-.ssh/environment
+~/.ssh/environment
 .git-bare/

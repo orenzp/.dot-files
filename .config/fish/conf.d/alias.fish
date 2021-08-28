@@ -4,7 +4,7 @@ alias tf='terraform'
 alias ll='ls -lha'
 alias history='history --show-time="%a %H %M %S - " --reverse'
 alias jf='jfrog'
-
+alias gc='gcloud'
 
 # Kubernetes Alias
 alias kcx='kubectx | fzf -m'
