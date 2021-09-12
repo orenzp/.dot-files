@@ -21,7 +21,7 @@ sudo apt-get update && sudo apt upgrade && export DEBIAN_FRONTEND=noninteractive
 sudo apt-get -y install --no-install-recommends bash-completion vim \
      software-properties-common dirmngr apt-transport-https lsb-release \
      iputils-ping ca-certificates etckeeper tlp tlp-rdw gpg smartmontools \
-     ansible ansible-lint terraform fish fortune
+     ansible ansible-lint terraform fish fortune ntpdate
 
 read -p $'\e[1;32mDo you want to install Azure CLI?? (y/n)?\e[0m' choice
 case "$choice" in 
