@@ -11,4 +11,12 @@ end
 export GPG_TTY=(tty) # For Yadm Encrypt command to work.
 cd ~/repos
 
-ntpdate ntp.ubuntu.com 2>/dev/null 
+switch (uname)
+case Linux
+    echo Hi Tux!
+    ntpdate ntp.ubuntu.com 2>/dev/null
+case Darwin
+    
+case '*'
+    echo Hi, stranger!
+end
