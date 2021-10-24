@@ -13,10 +13,11 @@ cd ~/repos
 
 switch (uname)
 case Linux
-    echo Hi Tux!
+    echo Hi Linux!
     ntpdate ntp.ubuntu.com 2>/dev/null
 case Darwin
-    
+    echo Hi Darwin
 case '*'
     echo Hi, stranger!
 end
+
