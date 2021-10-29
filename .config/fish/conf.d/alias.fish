@@ -1,10 +1,10 @@
 # General Alias
 alias repos='cd ~/repos'
-alias tf='terraform'
 alias ll='ls -lha'
 alias history='history --show-time="%a %H %M %S - " --reverse'
+
 alias jf='jfrog'
-alias gc='gcloud'
+alias tf='terraform'
 
 # Kubernetes Alias
 alias kcx='kubectx | fzf -m'
@@ -17,3 +17,9 @@ alias gst='git status'
 alias y='yadm'
 alias yst='yadm status'
 alias ydiff='yadm diff'
+
+## Azure Cloud
+
+## Google Cloud
+alias gc='gcloud'
+alias dc='docker-compose'
