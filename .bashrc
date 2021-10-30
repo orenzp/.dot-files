@@ -130,3 +130,4 @@ if [ -f '/home/orenzi/repos/temp/google-cloud-sdk/path.bash.inc' ]; then . '/hom
 if [ -f '/home/orenzi/repos/temp/google-cloud-sdk/completion.bash.inc' ]; then . '/home/orenzi/repos/temp/google-cloud-sdk/completion.bash.inc'; fi
 
 complete -C /usr/bin/terraform terraform
+. "$HOME/.cargo/env"
