@@ -13,11 +13,14 @@ cd ~/repos
 
 switch (uname)
 case Linux
-    echo Hi Linux!
+    #echo Hi Linux!
     ntpdate ntp.ubuntu.com 2>/dev/null
 case Darwin
-    echo Hi Darwin
+    #echo Hi Darwin
 case '*'
     echo Hi, stranger!
 end
+
+
+test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
 
