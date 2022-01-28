@@ -19,6 +19,13 @@ sudo curl -fLo /usr/local/bin/yadm \
   sudo chmod a+x /usr/local/bin/yadm
 ```
 
+** Configure Git with correct username and email
+```sh
+git config --global user.name "Oren Zipori"
+git config --global user.email "orenzp@hotmail.com"
+
+```
+
 **Clone the dot-file manager repo**
 
 ```sh
