@@ -18,7 +18,7 @@ function kubectl_status
   [ -z $ns ]; and set -l ns 'default'
 
 
-  if test -e /usr/local/bin/az
+  if test -e (which az)
     set AZ (az account show --query name -o tsv 2>/dev/null)
     [ -z $AZ ]; and set AZ 'AZ Logout'
   else
