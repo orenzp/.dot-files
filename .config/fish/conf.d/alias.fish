@@ -19,6 +19,7 @@ alias yst='yadm status'
 alias ydiff='yadm diff'
 
 ## Azure Cloud
+alias azi='az interactive'
 
 ## Google Cloud
 alias gc='gcloud'
