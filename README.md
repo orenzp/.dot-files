@@ -13,11 +13,8 @@ My prefer SHELL is fish Shell for all my workspaces.
 
 **Install YADM Package Manager**
 
-```sh
-sudo curl -fLo /usr/local/bin/yadm \
-  https://github.com/TheLocehiliosan/yadm/raw/master/yadm && \ 
-  sudo chmod a+x /usr/local/bin/yadm
-```
+Go to the YADM website for instraction on installation
+[YADM Install](https://yadm.io/docs/install#)
 
 **Configure Git with correct username and email**
 
