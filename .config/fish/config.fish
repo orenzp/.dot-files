@@ -28,6 +28,7 @@ end
 # Setting PATH for Python 3.10
 # The original version is saved in /Users/oz638q/.config/fish/config.fish.pysave
 set -x PATH "/Library/Frameworks/Python.framework/Versions/3.10/bin" "$PATH"
+set -gx SSH_AUTH_SOCK $HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock
 
 # ADFS tool to manage runtime version for cli like kubectl
 source /opt/homebrew/opt/asdf/libexec/asdf.fish
