@@ -23,7 +23,7 @@ end
 
 
 #test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
-
+fzf_configure_bindings --variables=\e\e --processes=\eP
 
 # Setting PATH for Python 3.10
 # The original version is saved in /Users/oz638q/.config/fish/config.fish.pysave
@@ -33,3 +33,11 @@ set -gx SSH_AUTH_SOCK $HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwa
 # ADFS tool to manage runtime version for cli like kubectl
 source /opt/homebrew/opt/asdf/libexec/asdf.fish
 
+
+# nvm.fish configuration
+if not functions -q nvm
+    if not functions -q fisher
+        curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+    end
+    fisher install jorgebucaran/nvm.fish
+end
