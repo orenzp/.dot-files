@@ -41,3 +41,6 @@ if not functions -q nvm
     end
     fisher install jorgebucaran/nvm.fish
 end
+# Set up Homebrew
+eval (/opt/homebrew/bin/brew shellenv)
+export PATH="$HOME/.local/bin:$PATH"
