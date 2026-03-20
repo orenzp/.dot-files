@@ -6,6 +6,12 @@ function message () {
   \e[0m"
 }
 
+# Detection (repeated here for standalone safety)
+IS_WSL2=false
+if grep -qi microsoft /proc/version 2>/dev/null; then
+    IS_WSL2=true
+fi
+
 message "Adding PPA repositorys"
 sleep 3
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
@@ -17,11 +23,18 @@ sudo echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] ht
 
 message "Installing Ubuntu packages"
 sleep 3
+
+PACKAGES="bash-completion vim software-properties-common dirmngr apt-transport-https lsb-release iputils-ping ca-certificates etckeeper gpg smartmontools ansible ansible-lint terraform fish fortune ntpdate"
+
+if [ "$IS_WSL2" = false ]; then
+    message "Non-WSL environment: adding hardware tools (tlp)"
+    PACKAGES="$PACKAGES tlp tlp-rdw"
+else
+    message "WSL2 environment detected: skipping hardware-specific tools (tlp)"
+fi
+
 sudo apt-get update && sudo apt upgrade && export DEBIAN_FRONTEND=noninteractive 
-sudo apt-get -y install --no-install-recommends bash-completion vim \
-     software-properties-common dirmngr apt-transport-https lsb-release \
-     iputils-ping ca-certificates etckeeper tlp tlp-rdw gpg smartmontools \
-     ansible ansible-lint terraform fish fortune ntpdate
+sudo apt-get -y install --no-install-recommends $PACKAGES
 
 read -p $'\e[1;32mDo you want to install Azure CLI?? (y/n)?\e[0m' choice
 case "$choice" in 

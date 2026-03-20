@@ -1,54 +1,58 @@
 #!/bin/bash
 
-# Save this file as ~/.config/yadm/bootstrap and make it executable. It will
-# execute all executable files (excluding templates and editor backups) in the
-# ~/.config/yadm/bootstrap.d directory when run.
-
+# Main bootstrap script for YADM
 set -eu
 
 # Directory to look for bootstrap executables in
 BOOTSTRAP_D="${BASH_SOURCE[0]}.d"
-system_type=$(uname -s)
 
-if [[ ! -d "$BOOTSTRAP_D" ]]; then
-    echo "Error: bootstrap directory '$BOOTSTRAP_D' not found" >&2
-    exit 1
+# --- OS Detection ---
+SYSTEM_TYPE=$(uname -s)
+OS_ID=""
+IS_WSL2=false
+
+if [ "$SYSTEM_TYPE" = "Linux" ]; then
+    if grep -qi microsoft /proc/version; then
+        IS_WSL2=true
+    fi
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        OS_ID=$ID
+    fi
 fi
 
-find "$BOOTSTRAP_D" -type f | sort | while IFS= read -r bootstrap; do
-    if [[ -x "$bootstrap" && ! "$bootstrap" =~ "##" && ! "$bootstrap" =~ "~$" ]]; then
-        if ! "$bootstrap"; then
-            echo "Error: bootstrap '$bootstrap' failed" >&2
-            exit 1
+echo "--- YADM Bootstrap ---"
+echo "Detected OS: $SYSTEM_TYPE"
+[ -n "$OS_ID" ] && echo "Distro: $OS_ID"
+[ "$IS_WSL2" = true ] && echo "Environment: WSL2"
+echo "----------------------"
+
+# --- Execute resolved bootstrap scripts (no ## in name) ---
+# yadm automatically resolves filenames like 'script##os.Darwin' 
+# to 'script' during checkout.
+if [[ -d "$BOOTSTRAP_D" ]]; then
+    # Use find to locate all files and check if they are executable in the loop
+    find "$BOOTSTRAP_D" -type f | sort | while IFS= read -r bootstrap; do
+        if [[ -x "$bootstrap" && ! "$bootstrap" =~ "##" && ! "$bootstrap" =~ "~$" ]]; then
+            echo ">> Executing $bootstrap..."
+            if ! "$bootstrap"; then
+                echo "!! Error: bootstrap '$bootstrap' failed" >&2
+                exit 1
+            fi
         fi
-    fi
-done
+    done
+fi
 
-# MACOS section
-if [ "$system_type" = "Darwin" ]; then
+# --- Manual OS-Specific fallback logic if needed ---
 
+# macOS specific (if not already handled in bootstrap.d scripts)
+if [ "$SYSTEM_TYPE" = "Darwin" ]; then
   # install homebrew if it's missing
   if ! command -v brew >/dev/null 2>&1; then
     echo "Installing homebrew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
-
-  if [ -f "$HOME/.Brewfile" ]; then
-    echo "Updating homebrew bundle"
-    brew bundle --global
-  fi
-
 fi
 
-# Linux section
-if [ "$system_type" = "Linux" ]; then
-
-    if command -v vi >/dev/null 2>&1; then
-      echo "Fish shell is installed."
-    else
-      echo "Fish shell is not installed. Installing Fish"
-        sudo apt-add-repository ppa:fish-shell/release-3
-        sudo apt update
-        sudo apt install fish
-    fi
-fi
+# --- Post-Bootstrap Summary ---
+echo "Bootstrap process completed."
