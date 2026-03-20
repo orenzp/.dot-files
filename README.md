@@ -9,28 +9,24 @@ YADM is able to save secrets in Git by enabling encrypt decrypt of certain files
 
 My prefer SHELL is fish Shell for all my workspaces.
 
-## Setup Requriements
+## Quick Start: Initializing YADM
 
-**Install YADM Package Manager**
+1. **Install yadm:** Follow the [official installation guide](https://yadm.io/docs/install#).
+2. **Configure Identity:**
+   ```sh
+   git config --global user.name "Oren Zipori"
+   git config --global user.email "orenzp@hotmail.com"
+   ```
+3. **Initiate & Bootstrap:**
+   ```sh
+   yadm clone https://github.com/orenzp/.dot-files.git
+   ```
+   *Post-clone, the `.config/yadm/bootstrap` script automatically installs Homebrew (macOS) or Fish (Linux), runs `brew bundle`, and updates the remote URL to SSH.*
 
-Go to the YADM website for instraction on installation
-[YADM Install](https://yadm.io/docs/install#)
-
-**Configure Git with correct username and email**
-
-```sh
-git config --global user.name "Oren Zipori"
-git config --global user.email "orenzp@hotmail.com"
-
-```
-
-**Clone the dot-file manager repo**
-
-```sh
-yadm clone https://github.com/orenzp/.dot-files.git
-```
-
-> NOTE: that after 'yadm clone' YADM will execute a bootstap script in .config/yadm/bootstrap which will apply basic setup configuration like installing packages changing YADM repo URL from HTTPS to SSH.
+4. **Manage Secrets:**
+   - **Encrypt:** `yadm encrypt` (uses `openssl` via `.config/yadm/config`)
+   - **Decrypt:** `yadm decrypt` (processes files matching `.config/yadm/encrypt`)
+   - **Note:** `GPG_TTY` is auto-exported in `config.fish` for interactive prompts.
 
 ## Referance URL's:
 
