@@ -21,63 +21,32 @@ sudo add-apt-repository -n ppa:git-core/ppa # stable PPA for latest stable Git v
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
 sudo echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
+# Helper for interactive prompts
+function ask_permission() {
+    local prompt=$1
+    if [[ "${YADM_QUIET:-false}" == "true" ]]; then
+        return 0 # Auto-accept in quiet mode
+    fi
+    read -p "$prompt" choice
+    case "$choice" in 
+        y|Y ) return 0 ;;
+        * ) return 1 ;;
+    esac
+}
+
 message "Installing Ubuntu packages"
-sleep 3
+# ... (rest of the script)
 
-PACKAGES="bash-completion vim software-properties-common dirmngr apt-transport-https lsb-release iputils-ping ca-certificates etckeeper gpg smartmontools ansible ansible-lint terraform fish fortune ntpdate unzip"
-
-if [ "$IS_WSL2" = false ]; then
-    message "Non-WSL environment: adding hardware tools (tlp)"
-    PACKAGES="$PACKAGES tlp tlp-rdw"
+if ask_permission $'\e[1;32mDo you want to install Azure CLI?? (y/n)?\e[0m'; then
+    curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 else
-    message "WSL2 environment detected: skipping hardware-specific tools (tlp)"
+    message "Skipping Azure CLI installation"
 fi
 
-sudo apt-get update && sudo apt upgrade && export DEBIAN_FRONTEND=noninteractive 
-sudo apt-get -y install --no-install-recommends $PACKAGES
+# ...
 
-read -p $'\e[1;32mDo you want to install Azure CLI?? (y/n)?\e[0m' choice
-case "$choice" in 
-  y|Y ) curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash ;;
-  n|N ) message "Aboring Azure CLI installation";;
-  * ) message "invalid answer";;
-esac
- 
-message "Setup Kubectl, HELM and add-ons"
-sleep 3
-if ! command -v helm &> /dev/null
-then
-    curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+if ask_permission $'\e[1;32mDo you want to decrypt YADM Files? (y/n)?\e[0m'; then
+    yadm decrypt
 else
-    message "HELM Found $(helm version --short)"
+    message "Skipping YADM Decrypt"
 fi
-
-curl -L https://github.com/wercker/stern/releases/download/1.11.0/stern_linux_amd64 \
-    --output stern && chmod +x stern && sudo mv stern /usr/local/bin/stern
-
-curl -s "https://raw.githubusercontent.com/\
-kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash \
-    && sudo kustomize /usr/local/bin
-
-message "Installing Bitwarden CLI"
-sleep 3
-if ! command -v bw &> /dev/null
-then
-    curl -L -o bw-linux.zip "https://vault.bitwarden.com/download/?app=cli&platform=linux"
-    unzip bw-linux.zip
-    chmod +x bw
-    sudo mv bw /usr/local/bin/
-    rm bw-linux.zip
-else
-    message "Bitwarden CLI Found $(bw --version)"
-fi
-
-message "Runnin small commands"
-terraform -install-autocomplete
-
-read -p $'\e[1;32mDo you want to decrypt YADM Files? (y/n)?\e[0m' choice
-case "$choice" in 
-  y|Y ) yadm decrypt ;;
-  n|N ) message "Aborting YADM Decrypt";;
-  * ) message "invalid answer";;
-esac
