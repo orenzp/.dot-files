@@ -19,15 +19,18 @@ ARCH=$(dpkg --print-architecture)
 export DEBIAN_FRONTEND=noninteractive
 
 message "Configuring Timezone"
+# Set timezone non-interactively
+sudo ln -fs /usr/share/zoneinfo/Asia/Jerusalem /etc/localtime
 echo "tzdata tzdata/Areas select Asia" | sudo debconf-set-selections
 echo "tzdata tzdata/Zones/Asia select Jerusalem" | sudo debconf-set-selections
+sudo dpkg-reconfigure -f noninteractive tzdata
 
 message "Adding PPA repositorys"
 sleep 3
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 
-sudo DEBIAN_FRONTEND=noninteractive apt-add-repository -y ppa:fish-shell/release-3
+sudo DEBIAN_FRONTEND=noninteractive add-apt-repository -y ppa:fish-shell/release-3
 sudo DEBIAN_FRONTEND=noninteractive add-apt-repository -y ppa:git-core/ppa
 
 # Updated Kubernetes repository (pkgs.k8s.io)

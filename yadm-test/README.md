@@ -19,14 +19,14 @@ docker run -it --rm \
 ```
 
 ## 3. Inside the container
-Once inside, clone your repository and initiate the bootstrap:
+Once inside, clone your repository and initiate the bootstrap. The process is fully automated and non-interactive.
 
 ```bash
-# Clone and run bootstrap (provide your repo URL)
-yadm clone --bootstrap git@github.com:orenzp/.dot-files.git
+# Clone and run bootstrap non-interactively
+GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" yadm clone --bootstrap git@github.com:orenzp/.dot-files.git
 ```
 
 ### Notes
-- Your bootstrap script currently uses `sudo`, which is handled in the `Dockerfile`.
-- Some packages might fail in a containerized environment (like hardware-specific tools or systemd-dependent services).
-- You may need to manually bypass or answer interactive prompts during the bootstrap process.
+- Your bootstrap script uses `sudo`, which is handled in the `Dockerfile` with `NOPASSWD`.
+- The bootstrap script handles timezone (Asia/Jerusalem) and package installation non-interactively.
+- `YADM_QUIET=true` is used in automation to skip interactive prompts like Azure CLI confirmation (though it currently auto-accepts them).

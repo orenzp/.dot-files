@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Install HomeBrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Install HomeBrew non-interactively
+NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 brew bundle --file ~/.config/yadm/bootstrap.d/Brewfile
