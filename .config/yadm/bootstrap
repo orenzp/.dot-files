@@ -34,16 +34,29 @@ echo "Detected OS: $SYSTEM_TYPE"
 [ "$IS_WSL2" = true ] && echo "Environment: WSL2"
 echo "----------------------"
 
-# --- Execute resolved bootstrap scripts (no ## in name) ---
-# yadm automatically resolves filenames like 'script##os.Darwin' 
-# to 'script' during checkout.
+# --- Execute bootstrap scripts ---
 if [[ -d "$BOOTSTRAP_D" ]]; then
-    # Use find to locate all files and check if they are executable in the loop
-    find "$BOOTSTRAP_D" -type f | sort | while IFS= read -r bootstrap; do
-        if [[ -x "$bootstrap" && ! "$bootstrap" =~ "##" && ! "$bootstrap" =~ "~$" ]]; then
-            echo ">> Executing $bootstrap..."
-            if ! "$bootstrap"; then
-                echo "!! Error: bootstrap '$bootstrap' failed" >&2
+    # Get a list of base script names (without suffixes)
+    mapfile -t base_scripts < <(find "$BOOTSTRAP_D" -type f | sed -E 's/##.*$//' | sort -u)
+
+    for base in "${base_scripts[@]}"; do
+        # Use yadm's own naming convention to find the best match for this OS
+        # Check for: base##os.Linux (or Darwin), then base##os, then base
+        script=""
+        if [[ -f "${base}##os.${SYSTEM_TYPE}" ]]; then
+            script="${base}##os.${SYSTEM_TYPE}"
+        elif [[ -f "${base}##os.${OS_ID}" ]]; then
+            script="${base}##os.${OS_ID}"
+        elif [[ -f "${base}##os" ]]; then
+            script="${base}##os"
+        elif [[ -f "${base}" && ! "${base}" =~ "##" ]]; then
+            script="${base}"
+        fi
+
+        if [[ -n "$script" && -x "$script" ]]; then
+            echo ">> Executing $script..."
+            if ! "$script"; then
+                echo "!! Error: bootstrap '$script' failed" >&2
                 exit 1
             fi
         fi
