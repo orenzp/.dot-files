@@ -24,7 +24,7 @@ sudo echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] ht
 message "Installing Ubuntu packages"
 sleep 3
 
-PACKAGES="bash-completion vim software-properties-common dirmngr apt-transport-https lsb-release iputils-ping ca-certificates etckeeper gpg smartmontools ansible ansible-lint terraform fish fortune ntpdate"
+PACKAGES="bash-completion vim software-properties-common dirmngr apt-transport-https lsb-release iputils-ping ca-certificates etckeeper gpg smartmontools ansible ansible-lint terraform fish fortune ntpdate unzip"
 
 if [ "$IS_WSL2" = false ]; then
     message "Non-WSL environment: adding hardware tools (tlp)"
@@ -58,6 +58,19 @@ curl -L https://github.com/wercker/stern/releases/download/1.11.0/stern_linux_am
 curl -s "https://raw.githubusercontent.com/\
 kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash \
     && sudo kustomize /usr/local/bin
+
+message "Installing Bitwarden CLI"
+sleep 3
+if ! command -v bw &> /dev/null
+then
+    curl -L -o bw-linux.zip "https://vault.bitwarden.com/download/?app=cli&platform=linux"
+    unzip bw-linux.zip
+    chmod +x bw
+    sudo mv bw /usr/local/bin/
+    rm bw-linux.zip
+else
+    message "Bitwarden CLI Found $(bw --version)"
+fi
 
 message "Runnin small commands"
 terraform -install-autocomplete
