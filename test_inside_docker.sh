@@ -13,6 +13,9 @@ export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no"
 # We use --bootstrap to trigger the bootstrap script immediately
 # We set YADM_QUIET=true to avoid interactive prompts in the bootstrap logic
 export YADM_QUIET=true
+# Use YADM_PASSPHRASE if provided in environment
+export YADM_PASSPHRASE="${YADM_PASSPHRASE:-}"
+
 yadm clone --bootstrap /repo
 
 echo "--- Verifying Package Installation ---"

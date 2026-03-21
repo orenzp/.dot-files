@@ -43,6 +43,10 @@ function ask_permission() {
     if [[ "${YADM_QUIET:-false}" == "true" ]]; then
         return 0 # Auto-accept in quiet mode
     fi
+    # If not a TTY, we can't ask, so default to yes (for automation)
+    if [[ ! -t 0 ]]; then
+        return 0
+    fi
     read -p "$prompt" choice
     case "$choice" in 
         y|Y ) return 0 ;;
@@ -73,8 +77,11 @@ fi
 
 # ...
 
-if [[ "${YADM_QUIET:-false}" == "true" ]]; then
-    message "Skipping YADM Decrypt in Quiet mode"
+if [[ -n "${YADM_PASSPHRASE:-}" ]]; then
+    message "Decrypting YADM Files with provided passphrase"
+    echo "$YADM_PASSPHRASE" | yadm decrypt
+elif [[ "${YADM_QUIET:-false}" == "true" ]]; then
+    message "Skipping YADM Decrypt in Quiet mode (no passphrase provided)"
 elif ask_permission $'\e[1;32mDo you want to decrypt YADM Files? (y/n)?\e[0m'; then
     yadm decrypt
 else
