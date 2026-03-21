@@ -15,13 +15,20 @@ fi
 # Detect Architecture
 ARCH=$(dpkg --print-architecture)
 
+# Helper for non-interactive apt
+export DEBIAN_FRONTEND=noninteractive
+
+message "Configuring Timezone"
+echo "tzdata tzdata/Areas select Asia" | sudo debconf-set-selections
+echo "tzdata tzdata/Zones/Asia select Jerusalem" | sudo debconf-set-selections
+
 message "Adding PPA repositorys"
 sleep 3
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 
-sudo apt-add-repository -n ppa:fish-shell/release-3
-sudo add-apt-repository -n ppa:git-core/ppa
+sudo DEBIAN_FRONTEND=noninteractive apt-add-repository -y ppa:fish-shell/release-3
+sudo DEBIAN_FRONTEND=noninteractive add-apt-repository -y ppa:git-core/ppa
 
 # Updated Kubernetes repository (pkgs.k8s.io)
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
@@ -52,8 +59,8 @@ else
     message "WSL2 environment detected: skipping hardware-specific tools (tlp)"
 fi
 
-sudo apt-get update && sudo apt upgrade && export DEBIAN_FRONTEND=noninteractive 
-sudo apt-get -y install --no-install-recommends $PACKAGES
+sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends $PACKAGES
 
 if ask_permission $'\e[1;32mDo you want to install Azure CLI?? (y/n)?\e[0m'; then
     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
