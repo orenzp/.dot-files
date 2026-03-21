@@ -12,14 +12,20 @@ if grep -qi microsoft /proc/version 2>/dev/null; then
     IS_WSL2=true
 fi
 
+# Detect Architecture
+ARCH=$(dpkg --print-architecture)
+
 message "Adding PPA repositorys"
 sleep 3
-curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-sudo apt-add-repository -n "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" 
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+
 sudo apt-add-repository -n ppa:fish-shell/release-3
-sudo add-apt-repository -n ppa:git-core/ppa # stable PPA for latest stable Git version
-sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-sudo echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo add-apt-repository -n ppa:git-core/ppa
+
+# Updated Kubernetes repository (pkgs.k8s.io)
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
 # Helper for interactive prompts
 function ask_permission() {
@@ -45,8 +51,10 @@ fi
 
 # ...
 
-if ask_permission $'\e[1;32mDo you want to decrypt YADM Files? (y/n)?\e[0m'; then
+if [[ "${YADM_QUIET:-false}" == "true" ]]; then
+    message "Skipping YADM Decrypt in Quiet mode"
+elif ask_permission $'\e[1;32mDo you want to decrypt YADM Files? (y/n)?\e[0m'; then
     yadm decrypt
 else
-    message "Skipping YADM Decrypt"
+    message "Aborting YADM Decrypt"
 fi
