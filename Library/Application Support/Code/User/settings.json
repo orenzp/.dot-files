@@ -1,0 +1,183 @@
+{
+  "editor.minimap.enabled" : false,
+  "workbench.editor.untitled.hint": "hidden",
+  "git.confirmSync" : false,
+  "git.ignoreWindowsGit27Warning" : true,
+  "editor.renderControlCharacters" : false,
+  "vsintellicode.modify.editor.suggestSelection" : "automaticallyOverrodeDefaultValue",
+  "snyk.codeEnabled" : true,
+  "workbench.startupEditor" : "newUntitledFile",
+  "workbench.iconTheme" : "vscode-icons",
+  "yaml.validate" : false,
+  "explorer.confirmDelete" : false,
+  "editor.suggestSelection" : "first",
+  "atlascode.bitbucket.enabled" : false,
+  "remote.SSH.remotePlatform" : {
+    "orenzi.northeurope.cloudapp.azure.com" : "linux",
+    "tlv-jenkins-01.trad.local" : "linux",
+    "K8S00" : "linux",
+    "rpi-1" : "linux"
+  },
+  "shellLauncher.shells.windows" : [
+    {
+      "shell" : "c:\\Program Files\\PowerShell\\7\\pwsh.exe",
+      "label" : "PowerShell"
+    },
+    {
+      "shell" : "C:\\WINDOWS\\System32\\wsl.exe",
+      "label" : "WSL 2"
+    }
+  ],
+  "yaml.customTags" : [
+    "!And",
+    "!And sequence",
+    "!If",
+    "!If sequence",
+    "!Not",
+    "!Not sequence",
+    "!Equals",
+    "!Equals sequence",
+    "!Or",
+    "!Or sequence",
+    "!FindInMap",
+    "!FindInMap sequence",
+    "!Base64",
+    "!Join",
+    "!Join sequence",
+    "!Cidr",
+    "!Ref",
+    "!Sub",
+    "!Sub sequence",
+    "!GetAtt",
+    "!GetAZs",
+    "!ImportValue",
+    "!ImportValue sequence",
+    "!Select",
+    "!Select sequence",
+    "!Split",
+    "!Split sequence",
+    "!encrypted\/pkcs1-oaep scalar",
+    "!vault scalar"
+  ],
+  "vs-kubernetes" : {
+    "vs-kubernetes.draft-path.mac": "/Users/oz638q/.vs-kubernetes/tools/draft/darwin-amd64/draft",
+    "vs-kubernetes.kubectl-path.mac": "/Users/oz638q/.vs-kubernetes/tools/kubectl/kubectl",
+    "vscode-kubernetes.helm-path.mac": "/Users/oz638q/.vs-kubernetes/tools/helm/darwin-arm64/helm",
+    "vs-kubernetes.helm-path.mac": "/Users/oz638q/.vs-kubernetes/tools/helm/darwin-amd64/helm",
+    "vs-kubernetes.knownKubeconfigs": [],
+    "vscode-kubernetes.minikube-path.mac": "/Users/oz638q/.vs-kubernetes/tools/minikube/darwin-arm64/minikube",
+    "vs-kubernetes.minikube-path.mac": "/Users/oz638q/.vs-kubernetes/tools/minikube/darwin-amd64/minikube",
+    "vscode-kubernetes.kubectl-path.mac": "/Users/oz638q/.vs-kubernetes/tools/kubectl/kubectl",
+    "vs-kubernetes.minikube-show-information-expiration": "2024-01-27T06:12:29.046Z"
+  },
+  "security.workspace.trust.untrustedFiles" : "open",
+  "githubPullRequests.fileListLayout" : "flat",
+  "git.autofetchPeriod" : 60,
+  "git.autofetch" : true,
+  "azure.resourceFilter" : [
+    "812aea3a-56f9-4dcb-81f3-83e61357076e\/c5e7a9f2-8220-4dbd-8a43-545c473a8fda",
+    "812aea3a-56f9-4dcb-81f3-83e61357076e\/e2aa70aa-cb47-4e6e-8060-e11f5936c97e",
+    "e741d71c-c6b6-47b0-803c-0f3b32b07556\/f3c3c9be-98e5-44bd-a269-d42685828cb4",
+    "e741d71c-c6b6-47b0-803c-0f3b32b07556\/796cedca-445f-4767-8c87-bddd941db242"
+  ],
+  "redhat.telemetry.enabled" : true,
+  "editor.accessibilitySupport" : "off",
+  "go.toolsManagement.autoUpdate" : true,
+  "checkov.token" : "8cfc1937-2ad5-47e7-b603-691b8b93b0b7",
+  "yaml.schemas" : {
+    "file:\/\/\/c%3A\/Users\/orenzi\/.vscode\/extensions\/atlassian.atlascode-2.8.5\/resources\/schemas\/pipelines-schema.json" : "bitbucket-pipelines.yml"
+  },
+  "vsicons.dontShowNewVersionMessage" : true,
+  "files.associations" : {
+    "*.ssh" : "ssh_config"
+  },
+  "aws.samcli.location" : "\/usr\/local\/bin\/sam",
+  "gitlens.views.compare.files.layout" : "tree",
+  "snyk.token" : "f3327da5-5757-48c5-b933-ef4cd1ddfbfd",
+  "terminal.integrated.splitCwd" : "initial",
+  "editor.tabSize" : 2,
+  "terminal.explorerKind": "external",
+  "gitlens.views.branches.branches.layout" : "list",
+  "git.fetchOnPull" : true,
+  "atlascode.jira.jqlList" : [
+    {
+      "siteId" : "1d3038a6-59ab-451c-bf3b-55c45c5a07d8",
+      "id" : "60341ec7-b33b-4c83-a684-14f42ce79c10",
+      "enabled" : true,
+      "query" : "assignee = currentUser() AND resolution = Unresolved ORDER BY lastViewed DESC",
+      "name" : "My etoro-jira Issues",
+      "monitor" : true
+    }
+  ],
+  "workbench.editorAssociations" : {
+    "*.ipynb" : "jupyter-notebook"
+  },
+  "workbench.colorTheme" : "GitHub Dark Default",
+  "notebook.cellToolbarLocation" : {
+    "default" : "right",
+    "jupyter-notebook" : "left"
+  },
+  "remote.SSH.configFile" : "~\/.ssh\/config",
+  "breadcrumbs.enabled": true,
+  "python.analysis.extraPaths" : [
+    "\/home\/oren\/.vscode\/extensions\/ms-python.devicesimulatorexpress-2020.0.36321\/out",
+    "\/home\/oren\/.vscode\/extensions\/ms-python.devicesimulatorexpress-2020.0.36321\/out\/micropython",
+    "\/home\/oren\/.vscode\/extensions\/ms-python.devicesimulatorexpress-2020.0.36321\/out\/clue",
+    "\/home\/oren\/.vscode\/extensions\/ms-python.devicesimulatorexpress-2020.0.36321\/out\/base_circuitpython",
+    "c:\\Users\\orenzi\\.vscode\\extensions\\ms-python.devicesimulatorexpress-2020.0.36321\\out",
+    "c:\\Users\\orenzi\\.vscode\\extensions\\ms-python.devicesimulatorexpress-2020.0.36321\\out\\micropython",
+    "c:\\Users\\orenzi\\.vscode\\extensions\\ms-python.devicesimulatorexpress-2020.0.36321\\out\\clue",
+    "c:\\Users\\orenzi\\.vscode\\extensions\\ms-python.devicesimulatorexpress-2020.0.36321\\out\\base_circuitpython"
+  ],
+  "snyk.yesWelcomeNotification" : false,
+  "python.autoComplete.extraPaths" : [
+    "\/home\/oren\/.vscode\/extensions\/ms-python.devicesimulatorexpress-2020.0.36321\/out",
+    "\/home\/oren\/.vscode\/extensions\/ms-python.devicesimulatorexpress-2020.0.36321\/out\/micropython",
+    "\/home\/oren\/.vscode\/extensions\/ms-python.devicesimulatorexpress-2020.0.36321\/out\/clue",
+    "\/home\/oren\/.vscode\/extensions\/ms-python.devicesimulatorexpress-2020.0.36321\/out\/base_circuitpython",
+    "c:\\Users\\orenzi\\.vscode\\extensions\\ms-python.devicesimulatorexpress-2020.0.36321\\out",
+    "c:\\Users\\orenzi\\.vscode\\extensions\\ms-python.devicesimulatorexpress-2020.0.36321\\out\\micropython",
+    "c:\\Users\\orenzi\\.vscode\\extensions\\ms-python.devicesimulatorexpress-2020.0.36321\\out\\clue",
+    "c:\\Users\\orenzi\\.vscode\\extensions\\ms-python.devicesimulatorexpress-2020.0.36321\\out\\base_circuitpython"
+  ],
+  "git.enableSmartCommit" : true,
+  "audioCues.*": "off",
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  },
+  "veracode.Auto-Scan on Save": false,
+  "azureLogicAppsStandard.showProjectWarning": false,
+  "vscode-kubernetes.helm-path.mac": "",
+  "terminal.integrated.defaultProfile.osx": "fish",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "azureFunctions.showProjectWarning": false,
+  "git.ignoreRebaseWarning": true,
+  "[python]": {
+    "editor.formatOnType": true
+  },
+  "torque.activeProfile": "",
+  "azureFunctions.showMultiCoreToolsWarning": false,
+"git.pruneOnFetch": true,
+  "terminal.integrated.scrollback": 2000,
+  "workbench.editor.empty.hint": "hidden",
+  "azureTerraform.survey": {
+    "surveyPromptDate": "never",
+    "surveyPromptIgnoredCount": 0
+  },
+  "accessibility.signals.lineHasError": {
+    "sound": "off"
+  },
+  "accessibility.signals.terminalCommandFailed": {
+    "sound": "off"
+  },
+  "http.systemCertificatesNode": true,
+  "geminicodeassist.project": "agile-cache-t0zxb",
+  "geminicodeassist.displayInlineContextHint": false,
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "diffEditor.codeLens": true,
+  "claudeCode.preferredLocation": "panel",
+  "claudeCode.useTerminal": true,
+  "chat.viewSessions.orientation": "stacked"
+}
