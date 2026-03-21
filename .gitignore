@@ -1,3 +1,4 @@
 .ssh/id_*
 ~/.ssh/environment
 .git-bare/
+.yadm_bootstrap.log

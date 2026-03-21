@@ -3,6 +3,13 @@
 # Main bootstrap script for YADM
 set -eu
 
+# --- Logging setup ---
+LOG_FILE="$HOME/.yadm_bootstrap.log"
+# Clear old log and start new one, redirecting all output to both file and terminal
+exec > >(tee "$LOG_FILE") 2>&1
+
+echo "Logging to $LOG_FILE"
+
 # Directory to look for bootstrap executables in
 BOOTSTRAP_D="${BASH_SOURCE[0]}.d"
 
