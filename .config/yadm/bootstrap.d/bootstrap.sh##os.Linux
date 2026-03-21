@@ -41,7 +41,19 @@ function ask_permission() {
 }
 
 message "Installing Ubuntu packages"
-# ... (rest of the script)
+sleep 3
+
+PACKAGES="bash-completion vim software-properties-common dirmngr apt-transport-https lsb-release iputils-ping ca-certificates etckeeper gpg smartmontools ansible ansible-lint terraform fish fortune ntpdate unzip"
+
+if [ "$IS_WSL2" = false ]; then
+    message "Non-WSL environment: adding hardware tools (tlp)"
+    PACKAGES="$PACKAGES tlp tlp-rdw"
+else
+    message "WSL2 environment detected: skipping hardware-specific tools (tlp)"
+fi
+
+sudo apt-get update && sudo apt upgrade && export DEBIAN_FRONTEND=noninteractive 
+sudo apt-get -y install --no-install-recommends $PACKAGES
 
 if ask_permission $'\e[1;32mDo you want to install Azure CLI?? (y/n)?\e[0m'; then
     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
