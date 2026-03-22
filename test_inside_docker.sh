@@ -16,11 +16,7 @@ export YADM_QUIET=true
 # Use YADM_PASSPHRASE if provided in environment
 export YADM_PASSPHRASE="${YADM_PASSPHRASE:-}"
 
-if [[ -n "$YADM_PASSPHRASE" ]]; then
-    yadm clone --bootstrap -p "$YADM_PASSPHRASE" /repo
-else
-    yadm clone --bootstrap /repo
-fi
+yadm clone --bootstrap /repo
 
 echo "--- Verifying Package Installation ---"
 

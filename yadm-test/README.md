@@ -23,7 +23,7 @@ Once inside, clone your repository and initiate the bootstrap. The process is fu
 
 ```bash
 # Clone and run bootstrap non-interactively
-GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" YADM_QUIET=true YADM_PASSPHRASE="your_password" yadm clone --bootstrap -p "your_password" git@github.com:orenzp/.dot-files.git
+GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" YADM_QUIET=true YADM_PASSPHRASE="your_password" yadm clone --bootstrap git@github.com:orenzp/.dot-files.git
 ```
 
 ### Notes

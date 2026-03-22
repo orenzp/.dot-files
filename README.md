@@ -26,7 +26,7 @@ My prefer SHELL is fish Shell for all my workspaces.
 4. **Non-Interactive Bootstrap (Automation):**
    The bootstrap process is designed to be non-interactive. You can provide your decryption passphrase and skip confirmation prompts via environment variables:
    ```sh
-   YADM_QUIET=true YADM_PASSPHRASE="your_password" yadm clone --bootstrap -p "your_password" https://github.com/orenzp/.dot-files.git
+   YADM_QUIET=true YADM_PASSPHRASE="your_password" yadm clone --bootstrap https://github.com/orenzp/.dot-files.git
    ```
 
 5. **Manage Secrets:**

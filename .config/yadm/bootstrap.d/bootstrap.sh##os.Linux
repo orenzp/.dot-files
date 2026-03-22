@@ -18,6 +18,11 @@ ARCH=$(dpkg --print-architecture)
 # Helper for non-interactive apt
 export DEBIAN_FRONTEND=noninteractive
 
+# Ensure expect is installed for non-interactive decryption
+if ! command -v expect >/dev/null 2>&1; then
+    sudo apt-get update && sudo apt-get install -y expect
+fi
+
 message "Configuring Timezone"
 # Set timezone non-interactively
 sudo ln -fs /usr/share/zoneinfo/Asia/Jerusalem /etc/localtime
@@ -76,7 +81,12 @@ fi
 
 if [[ -n "${YADM_PASSPHRASE:-}" ]]; then
     message "Decrypting YADM Files with provided passphrase"
-    echo "$YADM_PASSPHRASE" | yadm decrypt -p
+    expect -c "
+spawn yadm decrypt
+expect \"password:\"
+send \"$YADM_PASSPHRASE\\r\"
+expect eof
+"
 elif [[ "${YADM_QUIET:-false}" == "true" ]]; then
     message "Skipping YADM Decrypt in Quiet mode (no passphrase provided)"
 elif ask_permission $'\e[1;32mDo you want to decrypt YADM Files? (y/n)?\e[0m'; then
