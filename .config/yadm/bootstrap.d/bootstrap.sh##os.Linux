@@ -40,12 +40,9 @@ echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.
 # Helper for interactive prompts
 function ask_permission() {
     local prompt=$1
-    if [[ "${YADM_QUIET:-false}" == "true" ]]; then
-        return 0 # Auto-accept in quiet mode
-    fi
-    # If not a TTY, we can't ask, so default to yes (for automation)
-    if [[ ! -t 0 ]]; then
-        return 0
+    # Auto-accept if YADM_QUIET is true, OR if not running in a TTY
+    if [[ "${YADM_QUIET:-false}" == "true" ]] || [[ ! -t 0 ]]; then
+        return 0 
     fi
     read -p "$prompt" choice
     case "$choice" in 
@@ -57,7 +54,7 @@ function ask_permission() {
 message "Installing Ubuntu packages"
 sleep 3
 
-PACKAGES="bash-completion vim software-properties-common dirmngr apt-transport-https lsb-release iputils-ping ca-certificates etckeeper gpg smartmontools ansible ansible-lint terraform fish fortune ntpdate unzip"
+PACKAGES="bash-completion vim software-properties-common dirmngr apt-transport-https lsb-release iputils-ping ca-certificates etckeeper gpg smartmontools ansible ansible-lint terraform fish fortune-mod fortunes ntpdate unzip"
 
 if [ "$IS_WSL2" = false ]; then
     message "Non-WSL environment: adding hardware tools (tlp)"
@@ -79,7 +76,7 @@ fi
 
 if [[ -n "${YADM_PASSPHRASE:-}" ]]; then
     message "Decrypting YADM Files with provided passphrase"
-    echo "$YADM_PASSPHRASE" | yadm decrypt
+    echo "$YADM_PASSPHRASE" | yadm decrypt -p
 elif [[ "${YADM_QUIET:-false}" == "true" ]]; then
     message "Skipping YADM Decrypt in Quiet mode (no passphrase provided)"
 elif ask_permission $'\e[1;32mDo you want to decrypt YADM Files? (y/n)?\e[0m'; then

@@ -19,11 +19,17 @@ My prefer SHELL is fish Shell for all my workspaces.
    ```
 3. **Initiate & Bootstrap:**
    ```sh
-   yadm clone https://github.com/orenzp/.dot-files.git
+   yadm clone --bootstrap https://github.com/orenzp/.dot-files.git
    ```
    *Post-clone, the `.config/yadm/bootstrap` script automatically installs Homebrew (macOS) or Fish (Linux), runs `brew bundle`, and updates the remote URL to SSH.*
 
-4. **Manage Secrets:**
+4. **Non-Interactive Bootstrap (Automation):**
+   The bootstrap process is designed to be non-interactive. You can provide your decryption passphrase and skip confirmation prompts via environment variables:
+   ```sh
+   YADM_QUIET=true YADM_PASSPHRASE="your_password" yadm clone --bootstrap -p "your_password" https://github.com/orenzp/.dot-files.git
+   ```
+
+5. **Manage Secrets:**
    - **Encrypt:** `yadm encrypt` (uses `openssl` via `.config/yadm/config`)
    - **Decrypt:** `yadm decrypt` (processes files matching `.config/yadm/encrypt`)
    - **Note:** `GPG_TTY` is auto-exported in `config.fish` for interactive prompts.

@@ -23,10 +23,11 @@ Once inside, clone your repository and initiate the bootstrap. The process is fu
 
 ```bash
 # Clone and run bootstrap non-interactively
-GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" yadm clone --bootstrap git@github.com:orenzp/.dot-files.git
+GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" YADM_QUIET=true YADM_PASSPHRASE="your_password" yadm clone --bootstrap -p "your_password" git@github.com:orenzp/.dot-files.git
 ```
 
 ### Notes
 - Your bootstrap script uses `sudo`, which is handled in the `Dockerfile` with `NOPASSWD`.
 - The bootstrap script handles timezone (Asia/Jerusalem) and package installation non-interactively.
-- `YADM_QUIET=true` is used in automation to skip interactive prompts like Azure CLI confirmation (though it currently auto-accepts them).
+- `YADM_PASSPHRASE` is used to skip the interactive password prompt during `yadm decrypt`.
+- `YADM_QUIET=true` can be used to bypass remaining confirmation prompts (e.g. Azure CLI).
