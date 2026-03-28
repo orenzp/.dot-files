@@ -112,7 +112,7 @@
   "workbench.editorAssociations" : {
     "*.ipynb" : "jupyter-notebook"
   },
-  "workbench.colorTheme" : "GitHub Dark Default",
+  "workbench.colorTheme" : "Dark Modern",
   "notebook.cellToolbarLocation" : {
     "default" : "right",
     "jupyter-notebook" : "left"
@@ -179,5 +179,13 @@
   "diffEditor.codeLens": true,
   "claudeCode.preferredLocation": "panel",
   "claudeCode.useTerminal": true,
-  "chat.viewSessions.orientation": "stacked"
+  "chat.viewSessions.orientation": "stacked",
+  "github.copilot.nextEditSuggestions.enabled": false,
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "yaml": false
+  }
 }

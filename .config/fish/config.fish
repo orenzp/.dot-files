@@ -4,9 +4,9 @@ set fish_greeting
 
 function fish_greeting
   if command -v fortune >/dev/null
-    echo 	
-    echo (fortune -s)
-    echo 
+    echo
+    fortune -s ~/.fortunes/jordan_peterson
+    echo
   end
 end
 
