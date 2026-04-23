@@ -1,5 +1,5 @@
 function kubectl_status
-  [ -z "$KUBECTL_PROMPT_ICON" ]; and set -l KUBECTL_PROMPT_ICON "⎈"
+  [ -z "$KUBECTL_PROMPT_ICON" ]; and set -l KUBECTL_PROMPT_ICON "*"
   [ -z "$KUBECTL_PROMPT_SEPARATOR" ]; and set -l KUBECTL_PROMPT_SEPARATOR "/"
   set -l config $KUBECONFIG
   [ -z "$config" ]; and set -l config "$HOME/.kube/config"
@@ -17,14 +17,9 @@ function kubectl_status
   set -l ns (kubectl config view -o "jsonpath={.contexts[?(@.name==\"$ctx\")].context.namespace}")
   [ -z $ns ]; and set -l ns 'default'
 
+  set -l short_ctx (string replace -r -- '-cluster-admin$' '' $ctx | string sub -l 20)
 
-  if test -e (which az)
-    set AZ (az account show --query name -o tsv 2>/dev/null)
-    [ -z $AZ ]; and set AZ 'AZ Logout'
-  else
-    set AZ 'AZ Missing'
-  end
-  echo (set_color cyan)$KUBECTL_PROMPT_ICON" "(set_color red)"($ctx$KUBECTL_PROMPT_SEPARATOR$ns)"  (set_color green)"($AZ)"
+  echo (set_color cyan)$KUBECTL_PROMPT_ICON" "(set_color red)"($short_ctx$KUBECTL_PROMPT_SEPARATOR$ns)"
 end
 
 function fish_right_prompt

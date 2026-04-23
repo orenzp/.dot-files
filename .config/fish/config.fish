@@ -31,7 +31,6 @@ case '*'
 end
 
 
-#test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
 if functions -q fzf_configure_bindings
   fzf_configure_bindings --variables=\e\e --processes=\eP
 end

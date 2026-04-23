@@ -3,6 +3,5 @@ function fish_prompt
   set -l git (set_color green)(git rev-parse --abbrev-ref HEAD 2>/dev/null; or echo "")
   set -l cursor (set_color red)"❯"(set_color yellow)"❯"(set_color green)"❯ "
 
-  echo $dir $git
-  echo $cursor
+  echo $dir $git $cursor
 end

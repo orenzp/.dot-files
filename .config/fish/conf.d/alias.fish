@@ -6,6 +6,7 @@ alias history='history --show-time="%a %H %M %S - " --reverse'
 alias jf='jfrog'
 alias tf='terraform'
 alias h='helm'
+alias lg='lazygit'
 
 # Kubernetes Alias
 alias kc=kubectl
