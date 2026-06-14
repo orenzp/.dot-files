@@ -71,3 +71,7 @@ else if test -f /usr/local/bin/brew
 end
 
 export PATH="$HOME/.local/bin:$PATH"
+
+
+# Added by Antigravity CLI installer
+set -gx PATH "/Users/oren.zipori/.local/bin" $PATH
