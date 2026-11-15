@@ -139,3 +139,8 @@ export NVM_DIR="$HOME/.nvm"
 
 # Added by Antigravity CLI installer
 export PATH="/Users/oren.zipori/.local/bin:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/oren.zipori/.lmstudio/bin"
+# End of LM Studio CLI section
+

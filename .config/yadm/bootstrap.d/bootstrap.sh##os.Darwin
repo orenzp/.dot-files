@@ -1,6 +1,49 @@
 #!/bin/bash
+set -eu
 
-# Install HomeBrew non-interactively
-NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+function message () {
+  echo -e "\033[1;32m\n  ###  $1 ###\n\033[0m"
+}
 
-brew bundle --file ~/.config/yadm/bootstrap.d/Brewfile
+function ask_permission() {
+    local prompt=$1
+    if [[ "${YADM_QUIET:-false}" == "true" ]] || [[ ! -t 0 ]]; then
+        return 0
+    fi
+    read -p "$prompt" choice
+    case "$choice" in
+        y|Y ) return 0 ;;
+        * ) return 1 ;;
+    esac
+}
+
+# Install HomeBrew non-interactively if missing
+if ! command -v brew >/dev/null 2>&1; then
+    message "Installing Homebrew"
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    if [[ -x /opt/homebrew/bin/brew ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [[ -x /usr/local/bin/brew ]]; then
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
+fi
+
+message "Running brew bundle"
+brew bundle --file "$HOME/.config/yadm/bootstrap.d/Brewfile"
+
+# Decrypt YADM files if requested or passphrase provided
+if [[ -n "${YADM_PASSPHRASE:-}" ]]; then
+    message "Decrypting YADM Files with provided passphrase"
+    expect -c "
+spawn yadm decrypt
+expect \"password:\"
+send \"$YADM_PASSPHRASE\\r\"
+expect eof
+"
+elif [[ "${YADM_QUIET:-false}" == "true" ]]; then
+    message "Skipping YADM Decrypt in Quiet mode (no passphrase provided)"
+elif ask_permission $'\033[1;32mDo you want to decrypt YADM Files? (y/n)?\033[0m '; then
+    yadm decrypt
+else
+    message "Skipping YADM Decrypt"
+fi

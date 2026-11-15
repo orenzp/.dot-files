@@ -6,3 +6,13 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[url "git@ssh.dev.azure.com:v3/Au10tix-AD/Chicago%20NG/"]
+	insteadOf = https://dev.azure.com/Au10tix-AD/Chicago%20NG/_git/
+[credential "azrepos:org/Au10tix-AD"]
+	azureAuthority = https://login.microsoftonline.com/63951129-8e3e-496a-bf4c-2d98507a3d13
+	username = Oren.Zipori@au10tix.com
+[credential]
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true

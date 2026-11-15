@@ -35,9 +35,17 @@ echo "Detected OS: $SYSTEM_TYPE"
 echo "----------------------"
 
 # --- Execute bootstrap scripts ---
+# Ensure yadm alternate links are up to date before running bootstrap.d scripts
+if command -v yadm >/dev/null 2>&1; then
+    yadm alt
+fi
+
 if [[ -d "$BOOTSTRAP_D" ]]; then
-    # Get a list of base script names (without suffixes)
-    mapfile -t base_scripts < <(find "$BOOTSTRAP_D" -type f | sed -E 's/##.*$//' | sort -u)
+    # Get a list of base script names (without suffixes), compatible with Bash 3.2 (macOS)
+    base_scripts=()
+    while IFS= read -r line; do
+        [[ -n "$line" ]] && base_scripts+=("$line")
+    done < <(find "$BOOTSTRAP_D" -type f -o -type l | sed -E 's/##.*$//' | sort -u)
 
     for base in "${base_scripts[@]}"; do
         # Use yadm's own naming convention to find the best match for this OS
@@ -45,7 +53,7 @@ if [[ -d "$BOOTSTRAP_D" ]]; then
         script=""
         if [[ -f "${base}##os.${SYSTEM_TYPE}" ]]; then
             script="${base}##os.${SYSTEM_TYPE}"
-        elif [[ -f "${base}##os.${OS_ID}" ]]; then
+        elif [[ -n "$OS_ID" && -f "${base}##os.${OS_ID}" ]]; then
             script="${base}##os.${OS_ID}"
         elif [[ -f "${base}##os" ]]; then
             script="${base}##os"

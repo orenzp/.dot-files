@@ -3,9 +3,9 @@
 This directory contains a `Dockerfile` to test the `yadm` bootstrap process in a clean Ubuntu 22.04 environment.
 
 ## 1. Build the image
-From the root of your repository, run:
+From your home directory, run:
 ```bash
-docker build -t yadm-ubuntu-test yadm-test/
+docker build -t yadm-ubuntu-test ~/.config/yadm/test/
 ```
 
 ## 2. Run the test

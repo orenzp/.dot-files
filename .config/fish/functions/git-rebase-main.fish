@@ -31,4 +31,29 @@ function git-rebase-main --description "Fetch origin and rebase current branch o
     end
 
     echo "Done."
+
+    # Show how the branch now compares to its upstream and flag any divergence.
+    # A rebase rewrites your commits, so the branch often diverges from its
+    # remote tracking branch even though the work is the same.
+    set upstream (git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2>/dev/null)
+    if test -n "$upstream"
+        set counts (git rev-list --left-right --count "HEAD...$upstream" 2>/dev/null | string split \t)
+        set ahead $counts[1]
+        set behind $counts[2]
+
+        echo
+        git status -sb | head -n 1
+
+        if test -n "$ahead" -a -n "$behind" -a "$ahead" -gt 0 -a "$behind" -gt 0
+            echo
+            echo "Your branch has diverged from $upstream (ahead $ahead, behind $behind)."
+            echo "This is expected after a rebase — it rewrote your commits."
+            read -l -P "Push with 'git push --force-with-lease'? [y/N] " answer
+            if test "$answer" = y -o "$answer" = Y
+                git push --force-with-lease
+            else
+                echo "Skipped. When ready, run: git push --force-with-lease"
+            end
+        end
+    end
 end

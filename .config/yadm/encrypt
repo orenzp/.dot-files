@@ -1,5 +1,6 @@
 .ssh/id*
 .ssh/*.pem
 .ssh/*.key
-.ssh/.pub
+.ssh/*.pub
 .ssh/*rsa*
+.ssh/att.ssh

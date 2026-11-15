@@ -1,0 +1,19 @@
+#!/bin/bash
+# YADM pre_commit hook: Warn or fail if encrypted files are newer than the archive
+
+ENCRYPT_FILE="$HOME/.config/yadm/encrypt"
+ARCHIVE_FILE="$HOME/.local/share/yadm/archive"
+
+if [[ -f "$ENCRYPT_FILE" && -f "$ARCHIVE_FILE" ]]; then
+    while IFS= read -r pattern || [[ -n "$pattern" ]]; do
+        # Skip empty lines and comments
+        [[ -z "$pattern" || "$pattern" =~ ^# ]] && continue
+        for file in $HOME/$pattern; do
+            if [[ -f "$file" && "$file" -nt "$ARCHIVE_FILE" ]]; then
+                echo "WARNING: '$file' has been modified since '$ARCHIVE_FILE' was last updated."
+                echo "Run 'yadm encrypt' and stage '$ARCHIVE_FILE' if you want to include the updated secret."
+            fi
+        done
+    done < "$ENCRYPT_FILE"
+fi
+exit 0

@@ -1,11 +1,30 @@
-# Something...
-set -gx PATH $PATH $HOME/.krew/bin
+# Set up Homebrew first so brew-installed tools (fortune, fzf, etc.) are on PATH
+if test -f /opt/homebrew/bin/brew
+  eval (/opt/homebrew/bin/brew shellenv)
+else if test -f /usr/local/bin/brew
+  eval (/usr/local/bin/brew shellenv)
+end
+
+# User local binaries and krew
+fish_add_path -g "$HOME/.local/bin" "$HOME/.krew/bin"
+
+if test -d "$HOME/.lmstudio/bin"
+  fish_add_path -g "$HOME/.lmstudio/bin"
+end
+
+# Default FZF options
+set -gx FZF_DEFAULT_OPTS "--height 40% --layout=reverse --border"
+
 set fish_greeting
 
 function fish_greeting
   if command -v fortune >/dev/null
     echo
-    fortune -s ~/.fortunes/jordan_peterson
+    if test -f ~/.fortunes/jordan_peterson
+      fortune -s ~/.fortunes/jordan_peterson
+    else
+      fortune -s
+    end
     echo
   end
 end
@@ -21,9 +40,6 @@ end
 switch (uname)
 case Linux
     #echo Hi Linux!
-    if command -v ntpdate >/dev/null
-      ntpdate ntp.ubuntu.com 2>/dev/null
-    end
 case Darwin
     #echo Hi Darwin
 case '*'
@@ -36,13 +52,12 @@ if functions -q fzf_configure_bindings
 end
 
 # Setting PATH for Python 3.10
-# The original version is saved in /Users/oz638q/.config/fish/config.fish.pysave
 if test -d "/Library/Frameworks/Python.framework/Versions/3.10/bin"
-  set -x PATH "/Library/Frameworks/Python.framework/Versions/3.10/bin" "$PATH"
+  fish_add_path -g "/Library/Frameworks/Python.framework/Versions/3.10/bin"
 end
 
 if test -S "$HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
-  set -gx SSH_AUTH_SOCK $HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock
+  set -gx SSH_AUTH_SOCK "$HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
 end
 
 # ASDF tool to manage runtime version for cli like kubectl
@@ -63,15 +78,3 @@ if status is-interactive
   end
 end
 
-# Set up Homebrew
-if test -f /opt/homebrew/bin/brew
-  eval (/opt/homebrew/bin/brew shellenv)
-else if test -f /usr/local/bin/brew
-  eval (/usr/local/bin/brew shellenv)
-end
-
-export PATH="$HOME/.local/bin:$PATH"
-
-
-# Added by Antigravity CLI installer
-set -gx PATH "/Users/oren.zipori/.local/bin" $PATH
