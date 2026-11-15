@@ -20,7 +20,7 @@ yadm clone --bootstrap /repo
 
 echo "--- Verifying Package Installation ---"
 
-PACKAGES="bash-completion vim software-properties-common dirmngr apt-transport-https lsb-release iputils-ping ca-certificates etckeeper gpg smartmontools ansible ansible-lint terraform fish fortune ntpdate unzip"
+PACKAGES="bash-completion vim software-properties-common dirmngr apt-transport-https lsb-release iputils-ping ca-certificates etckeeper gpg smartmontools ansible ansible-lint terraform fish fortune-mod fortunes ntpdate unzip"
 
 MISSING_PACKAGES=()
 for pkg in $PACKAGES; do
